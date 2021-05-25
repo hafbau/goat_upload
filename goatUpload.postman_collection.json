@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "bb7d5c71-fa85-4ef8-8bd2-357c3b95e07b",
+		"name": "goatUpload",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Download a file",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4337/files/06a4b8/download",
+					"host": [
+						"localhost"
+					],
+					"port": "4337",
+					"path": [
+						"files",
+						"06a4b8",
+						"download"
+					]
+				},
+				"description": "Download a file"
+			},
+			"response": []
+		},
+		{
+			"name": "Get File metadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/files/06a4b8",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"files",
+						"06a4b8"
+					]
+				},
+				"description": "Mainly used to get file upload status"
+			},
+			"response": [
+				{
+					"name": "Get File metadata",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/files/06a4b8",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"06a4b8"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "103"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"67-bMYwWzRO0YsROgzq+OJPXSbf9Ig\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 25 May 2021 06:26:17 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"06a4b8\",\n    \"fileName\": \"AWS-cole.tgz\",\n    \"uploadStatus\": \"Complete\",\n    \"size\": 2950468417,\n    \"progress\": \"100%\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Upload file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/hafizsuara/Desktop/AWS-cole.tgz"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4337/files",
+					"host": [
+						"localhost"
+					],
+					"port": "4337",
+					"path": [
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List All files",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/files",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a file",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/files/06a4b8",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"files",
+						"06a4b8"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:4337"
+		}
+	]
+}

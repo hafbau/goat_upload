@@ -1,7 +1,7 @@
 {
-  "name": "upload_large_files",
+  "name": "goat_upload",
   "version": "1.0.0",
-  "description": "Upload large files",
+  "description": "Goat Upload for large files",
   "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hafbau/upload_large_files.git"
+    "url": "git+https://github.com/hafbau/goat_upload.git"
   },
   "keywords": [
     "node stream",
@@ -21,9 +21,9 @@
   "author": "Hafiz Suara",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hafbau/upload_large_files/issues"
+    "url": "https://github.com/hafbau/goat_upload/issues"
   },
-  "homepage": "https://github.com/hafbau/upload_large_files#readme",
+  "homepage": "https://github.com/hafbau/goat_upload#readme",
   "jest": {
     "roots": [
       "<rootDir>/src"
