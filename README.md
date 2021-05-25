@@ -40,3 +40,4 @@ npm run dev
 - Add more tests
   • Unit tests
   • Performance test
+- Add database
