@@ -1,0 +1,1 @@
+export const uploadDir = process.env.UPLOAD_DIR || 'uploads';

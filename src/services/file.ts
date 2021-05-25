@@ -4,8 +4,9 @@ import {
   getFileById,
   upsertFile,
 } from '../utils/dataHelpers';
-import logger from '../utils/logger';
 import { WriteStream, createWriteStream } from 'fs';
+import { join } from 'path';
+import { uploadDir } from '../config';
 
 interface FileMeta {
   id?: string;
@@ -39,7 +40,7 @@ const processFirstChunk = async (contentLength: number, fileName: string) => {
     progress: '0%'
   });
   const fileId = fileMeta.id;
-  const fileStream = createWriteStream('./uploads/' + fileId + '_' + fileMeta.fileName);
+  const fileStream = createWriteStream(join(uploadDir, fileId + '_' + fileMeta.fileName));
   return { fileMeta, fileStream };
 }
 

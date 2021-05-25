@@ -3,14 +3,22 @@ import logger from './utils/logger';
 import { createReadStream, promises as fsp } from 'fs';
 import { join } from 'path';
 import { uploadFile } from './services/file';
+import { uploadDir } from './config';
 import {
     deleteFileById,
     getFileById,
     listFiles,
 } from './utils/dataHelpers';
 
-const app = express();
+// TODO: Should clean this up
+fsp.stat(uploadDir)
+.catch(err => {
+    if (err.code === 'ENOENT') {
+        fsp.mkdir(uploadDir)
+    }
+});
 
+const app = express();
 app.get('/', (_, res) => res.send({ status: 'Up' }));
 app.get('/files', async (_, res) => {
     res.json(await listFiles());
@@ -23,7 +31,7 @@ app.get('/files/:id/download', async (req, res) => {
     const file = await getFileById(id);
     if (file) {
         const { fileName } = file;
-        const filePath = './uploads/' + id + '_' + fileName;
+        const filePath = join(uploadDir, id + '_' + fileName);
         const readFileStream = createReadStream(filePath);
         res.setHeader('Content-Type', 'application/octet-stream');
         res.setHeader('Content-Disposition', 'attachment; filename=' + fileName);
@@ -43,7 +51,7 @@ app.delete('/files/:id', async (req, res) => {
     const file = await getFileById(id);
     if (file) {
         const { fileName } = file;
-        const filePath = join('./uploads/' + id + '_' + fileName);
+        const filePath = join(uploadDir, id + '_' + fileName);
         deleteFileById(req.params.id)
         .then(() => fsp.unlink(filePath))
         .then(() => res.json({ message: `Successfully deleted: ${fileName}` }))
