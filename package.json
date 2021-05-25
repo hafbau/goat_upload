@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server",
     "dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.spec.ts' --exec ts-node src/server",
-    "test": "jest",
+    "test": "LOG_LEVEL=0 jest",
     "build": "tsc"
   },
   "repository": {
