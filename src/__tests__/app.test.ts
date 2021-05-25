@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { createReadStream } from 'fs';
+import { createReadStream, readFileSync } from 'fs';
 import { agent } from 'supertest';
 import app from '../app';
 
@@ -32,5 +32,43 @@ describe('App', () => {
       expect(response.statusCode).toEqual(200);
     });
 
+  });
+
+  describe('GET /files', () => {
+    it('should list all files', async () => {
+      const response = await server.get('/files');
+      expect(response.statusCode).toEqual(200);
+      expect(response.body.length > 0).toEqual(true);
+    });
+  })
+
+  describe('GET /files/:id/download', () => {
+    it('should download specified file', async () => {
+      const allFilesResponse = await server.get('/files');
+      const fileId = allFilesResponse.body[0].id;
+      const response = await server.get(`/files/${fileId}/download`)
+      expect(response.statusCode).toEqual(200);
+      // const responseFile = Buffer.from(response.body);
+      // const sampleFile = readFileSync(join(__dirname, './sampleFile1MB.tgz'))
+      // expect(responseFile.equals(sampleFile)).toEqual(true);
+    });
+  });
+  
+  describe('DELETE /files/:id', () => {
+    it('should delete specified file', async () => {
+      const allFilesResponse = await server.get('/files');
+      const fileId = allFilesResponse.body[0].id;
+      const response = await server.delete(`/files/${fileId}`)
+      expect(response.statusCode).toEqual(200);
+      
+      const allFilesResponseAfter = await server.get('/files');
+      expect(
+        allFilesResponse.body?.length - 
+        allFilesResponseAfter.body?.length
+      ).toEqual(1);
+      expect(
+        allFilesResponseAfter.body?.find((file: any) => file.id === fileId)
+      ).toEqual(undefined);
+    });
   });
 });
