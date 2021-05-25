@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server",
     "dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.spec.ts' --exec ts-node src/server",
-    "test": "ts-jest test/**/*.ts",
+    "test": "jest",
     "build": "tsc"
   },
   "repository": {
@@ -24,6 +24,18 @@
     "url": "https://github.com/hafbau/upload_large_files/issues"
   },
   "homepage": "https://github.com/hafbau/upload_large_files#readme",
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.+(ts|tsx|js)",
+      "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
+  },
   "devDependencies": {
     "@types/jest": "26.0.22",
     "@types/node": "^15.0.3",

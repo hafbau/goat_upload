@@ -11,7 +11,8 @@
         "lib": ["es5", "es6", "dom"],
         "esModuleInterop": true,
         "types": [
-            "node"
+            "node",
+            "jest"
         ],
         "moduleResolution": "node"
     },

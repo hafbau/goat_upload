@@ -48,7 +48,11 @@ app.post('/files', (req, res) => {
         res.send({ status: 'done', dataLength, contentLength })
     })
 
-    req.on('error', (err) => logger.error(err))
+    req.on('error', (err) => {
+        logger.error(err);
+        req.emit('close')
+        res.status(400).send(err.message);
+    })
 })
 
 export default app;
