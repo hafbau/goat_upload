@@ -1,6 +1,6 @@
 import { promises as fsp } from 'fs';
-import { upsertFile } from 'utils/dataHelpers';
-import logger from 'utils/logger';
+import { upsertFile } from './utils/dataHelpers';
+import logger from './utils/logger';
 
 export const uploadDir = process.env.UPLOAD_DIR || 'uploads';
 export const setup = () => fsp.readdir(uploadDir)
@@ -10,7 +10,7 @@ export const setup = () => fsp.readdir(uploadDir)
       logger.debug('id, size, fileName', id, size, fileName)
       return upsertFile({
         id,
-        size: Number(size),
+        size: parseInt(size),
         fileName: fileName?.join(),
         uploadStatus: 'Complete',
         progress: '100%'

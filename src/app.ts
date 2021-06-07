@@ -1,6 +1,6 @@
 import express from 'express';
 import { setup } from './config';
-import * as handlers from 'handlers';
+import * as handlers from './handlers';
 
 setup();
 const app = express();
