@@ -30,8 +30,8 @@ app.get('/files/:id/download', async (req, res) => {
     const { id } = req.params;
     const file = await getFileById(id);
     if (file) {
-        const { fileName } = file;
-        const filePath = join(uploadDir, id + '_' + fileName);
+        const { fileName, size } = file;
+        const filePath = join(uploadDir, id + '_' + size + '_' + fileName);
         const readFileStream = createReadStream(filePath);
         res.setHeader('Content-Type', 'application/octet-stream');
         res.setHeader('Content-Disposition', 'attachment; filename=' + fileName);
@@ -50,8 +50,8 @@ app.delete('/files/:id', async (req, res) => {
     const { id } = req.params;
     const file = await getFileById(id);
     if (file) {
-        const { fileName } = file;
-        const filePath = join(uploadDir, id + '_' + fileName);
+        const { fileName, size } = file;
+        const filePath = join(uploadDir, id + '_' + size + '_' + fileName);
         deleteFileById(req.params.id)
         .then(() => fsp.unlink(filePath))
         .then(() => res.json({ message: `Successfully deleted: ${fileName}` }))
@@ -76,7 +76,9 @@ app.post('/files', (req, res) => {
         error: new Error('Wrong content type')
       })
     }
+    const boundary = contentType.split(';')[1].split('=')[1].trim();
     uploadFile(req, {
+      boundary,
       contentLength,
       onStarted: (fileMeta) => res.json(fileMeta),
       onError: (err) => {
