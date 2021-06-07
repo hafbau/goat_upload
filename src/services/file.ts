@@ -56,17 +56,16 @@ const removeBoundaryData = (chunk: Buffer, boundary: string): Buffer => {
 
 const isValidFileType = (fileName: string): boolean => /(\.tgz)$/.test(fileName);
 
-const processFirstChunk = async (contentLength: number, fileName: string, existing: any = {}) => {
+const processFirstChunk = async (contentLength: number, fileName: string) => {
   const fileMeta = await upsertFile({
-   ...existing,
-   fileName,
-   uploadStatus: 'In progress',
-   size: contentLength,
-   progress: existing.progress || '0%'
- });
- const fileId = fileMeta.id;
- const fileWriteStream = createWriteStream(join(uploadDir, fileId + '_' + contentLength + '_' + fileMeta.fileName));
- return { fileMeta, fileWriteStream };
+    fileName,
+    uploadStatus: 'In progress',
+    size: contentLength,
+    progress: '0%'
+  });
+  const fileId = fileMeta.id;
+  const fileWriteStream = createWriteStream(join(uploadDir, fileId + '_' + contentLength + '_' + fileMeta.fileName));
+  return { fileMeta, fileWriteStream };
 }
 
 interface NonFirstChunkInput {
@@ -134,7 +133,7 @@ export const uploadFile = (
         return;
       } 
       if (fileName) {
-        fileCtx = await processFirstChunk(contentLength, fileName, fileCtx?.fileMeta);
+        fileCtx = await processFirstChunk(contentLength, fileName);
         onStarted(fileCtx.fileMeta);
       }
       dataLength += chunk?.length ?? 0;
