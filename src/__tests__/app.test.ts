@@ -45,12 +45,12 @@ describe('App', () => {
   describe('GET /files/:id/download', () => {
     it('should download specified file', async () => {
       const allFilesResponse = await server.get('/files');
-      const fileId = allFilesResponse.body[0].id;
+      const fileId = allFilesResponse.body[allFilesResponse.body.length - 1].id;
       const response = await server.get(`/files/${fileId}/download`)
       expect(response.statusCode).toEqual(200);
-      // const responseFile = Buffer.from(response.body);
-      // const sampleFile = readFileSync(join(__dirname, './sampleFile1KB.tgz'))
-      // expect(responseFile.equals(sampleFile)).toEqual(true);
+      const responseFile = Buffer.from(response.body);
+      const sampleFile = readFileSync(join(__dirname, './sampleFile1KB.tgz'))
+      expect(responseFile.equals(sampleFile)).toEqual(true);
     });
   });
   

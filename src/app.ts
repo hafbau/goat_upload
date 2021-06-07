@@ -76,7 +76,9 @@ app.post('/files', (req, res) => {
         error: new Error('Wrong content type')
       })
     }
+    const boundary = contentType.split(';')[1].split('=')[1].trim();
     uploadFile(req, {
+      boundary,
       contentLength,
       onStarted: (fileMeta) => res.json(fileMeta),
       onError: (err) => {
