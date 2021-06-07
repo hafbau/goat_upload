@@ -1,5 +1,5 @@
 const LEVELS = ['strict', 'error', 'warn', 'info', 'debug']
-const LOG_LEVEL = parseInt(process.env.LOG_LEVEL) || 4;
+const LOG_LEVEL = process.env.LOG_LEVEL ? parseInt(process.env.LOG_LEVEL) : 4;
 
 export interface Logger {
   strict: (...args: any[]) => void;

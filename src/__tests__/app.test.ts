@@ -57,7 +57,7 @@ describe('App', () => {
   describe('DELETE /files/:id', () => {
     it('should delete specified file', async () => {
       const allFilesResponse = await server.get('/files');
-      const fileId = allFilesResponse.body[0].id;
+      const fileId = allFilesResponse.body[allFilesResponse.body.length - 1].id;
       const response = await server.delete(`/files/${fileId}`)
       expect(response.statusCode).toEqual(200);
       

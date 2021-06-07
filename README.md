@@ -4,7 +4,7 @@ This is a REST API for file upload using node streams
 ## Get Started
 
 ### ⛅️ Cloud
-Deployed here on heroku.
+[Deployed here](http://ec2-34-239-171-132.compute-1.amazonaws.com/).
 
 ### 🏠 Locally
 
