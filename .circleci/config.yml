@@ -49,7 +49,7 @@ jobs:
             git pull && \
             npm i && \
             npm run build && \
-            cp -r uploads dist/uploads
+            cp -r uploads dist/
             cd dist && \
             pm2 stop server && \
             pm2 start server && \
