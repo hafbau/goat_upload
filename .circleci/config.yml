@@ -60,9 +60,9 @@ workflows:
       - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
           requires:
             - build-and-test
-          filters:
-            branches:
-              only: main
+          # filters:
+          #   branches:
+          #     only: main
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
   # CircleCI will run this workflow on every commit.
