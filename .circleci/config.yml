@@ -48,6 +48,7 @@ jobs:
             cd ~/goat_upload && \
             git pull && \
             npm i && \
+            rm -rf dist && \
             npm run build && \
             cp -r uploads dist/
             cd dist && \
