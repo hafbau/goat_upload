@@ -35,6 +35,23 @@ jobs:
       - run:
           name: Run tests
           command: npm run test
+  deploy:
+    docker:
+      # - image: circleci/node:chakracore-8.11.1
+      - image: cimg/node:15.1
+    steps:
+      - run:
+          name: AWS EC2 deploy
+          command: |
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-239-171-132.compute-1.amazonaws.com \
+            "echo Start deploy && \
+            cd ~/goat_upload && \
+            git pull && \
+            npm i && \
+            npm run build && \
+            pm2 stop dist/server && \
+            pm2 start dist/server && \
+            echo Deploy end"
 
 workflows:
   heroku_deploy:
