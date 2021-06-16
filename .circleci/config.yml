@@ -48,11 +48,10 @@ jobs:
             cd ~/goat_upload && \
             git pull && \
             npm i && \
-            export UPLOAD_DIR=$(pwd)/uploads && \
             npm run build && \
             cd dist && \
             pm2 stop server && \
-            pm2 start server && \
+            UPLOAD_DIR=$(~/goat_upload/uploads) pm2 start server && \
             echo Deploy end"
 
 workflows:
