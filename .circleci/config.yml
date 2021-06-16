@@ -49,8 +49,9 @@ jobs:
             git pull && \
             npm i && \
             npm run build && \
-            pm2 stop dist/server && \
-            pm2 start dist/server && \
+            cd dist && \
+            pm2 stop server && \
+            pm2 start server && \
             echo Deploy end"
 
 workflows:
