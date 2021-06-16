@@ -49,9 +49,10 @@ jobs:
             git pull && \
             npm i && \
             npm run build && \
+            cp -r uploads dist/uploads
             cd dist && \
             pm2 stop server && \
-            UPLOAD_DIR=$(~/goat_upload/uploads) pm2 start server && \
+            pm2 start server && \
             echo Deploy end"
 
 workflows:
