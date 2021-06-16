@@ -7,7 +7,7 @@ orbs:
   # Orbs reduce the amount of configuration required for common tasks. 
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/node
   node: circleci/node@4.1
-  heroku: circleci/heroku@1.2.6 # Invoke the Heroku orb
+  # heroku: circleci/heroku@1.2.6 # Invoke the Heroku orb
 
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Run tests
           command: npm run test
-  deploy:
+  aws_deploy:
     docker:
       # - image: circleci/node:chakracore-8.11.1
       - image: cimg/node:15.1
@@ -54,15 +54,16 @@ jobs:
             echo Deploy end"
 
 workflows:
-  heroku_deploy:
+  build_deploy:
     jobs:
       - build-and-test
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+      - aws_deploy:
+      # - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
           requires:
             - build-and-test
-          filters:
-            branches:
-              only: main
+          # filters:
+          #   branches:
+          #     only: main
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
   # CircleCI will run this workflow on every commit.
